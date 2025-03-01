@@ -23,7 +23,7 @@
     --gray-alpha-100: rgba(var(--gray-rgb), 0.06);
 
     --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
+    --button-secondary-hover: #1bb061;
   }
 }
 
@@ -34,7 +34,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: var(--background);
+  background-color: #4CAF50; /* The green background for the intro page */
 }
 
 .center {
@@ -50,14 +50,14 @@
 .title {
   font-size: 3rem;
   font-weight: bold;
-  color: var(--foreground);
+  color: white;
   margin-bottom: 1rem;
 }
 
 .description {
   font-size: 1.2rem;
-  color: var(--foreground);
-  opacity: 0.8;
+  color: white;
+  opacity: 0.9;
   margin-bottom: 2rem;
 }
 
@@ -66,15 +66,16 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   font-weight: bold;
-  color: white;
-  background-color: #0070f3;
+  color: #4CAF50;
+  background-color: white;
   border-radius: 8px;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .startButton:hover {
-  background-color: #0051b3;
+  background-color: #f0f0f0;
+  transform: translateY(-2px);
 }
 
 @media (max-width: 768px) {
