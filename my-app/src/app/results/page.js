@@ -3,15 +3,15 @@
 import styles from '../page.module.css';
 import Link from 'next/link';
 
-export default function Quiz() {
+export default function Results() {
   return (
     <main className={styles.main}>
       <div className={styles.center}>
-        <h1>Quiz Page</h1>
+        <h1>Results Page</h1>
         
-        <p>Quiz content will go here</p>
-        <Link href="/results" className={styles.startButton}>
-          Submit
+        <p>Results will be here</p>
+        <Link href="/" className={styles.startButton}>
+          Restart
         </Link>
       </div>
     </main>
