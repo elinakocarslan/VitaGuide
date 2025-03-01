@@ -10,7 +10,7 @@ export default function Results() {
         <h1>Results Page</h1>
         
         <p>Results will be here</p>
-        <Link href="/" className={styles.startButton}>
+        <Link href="/" className={styles.button}>
           Restart
         </Link>
       </div>
