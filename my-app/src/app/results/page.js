@@ -7,12 +7,80 @@ export default function Results() {
   return (
     <main className={styles.main}>
       <div className={styles.center}>
-        <h1>Results Page</h1>
-        
-        <p>Results will be here</p>
-        <Link href="/" className={styles.startButton}>
-          Restart
-        </Link>
+        <div className={styles.recommendation}>
+          <h3>RESULTS</h3>
+          <h1>Recommendations for you</h1>
+          <p>
+            Based on your responses in the quiz, we recommend the following vitamins and foods:
+          </p>
+        </div>
+
+        <div className={styles.productGrid}>
+          <h2>Vitamins</h2>
+          <p className={styles.subtitle}>The vitamins we recommend for you based on your symptoms</p>
+          <div className={styles.vitaminList}>
+            <div className={styles.vitaminCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>❤️</span>
+                  <span>🧠</span>
+                  <span>💪</span>
+                </div>
+                <p>You need as you eat fish more or less per week</p>
+                <h3>Vitamin D</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.vitaminCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🧠</span>
+                  <span>💪</span>
+                  <span>🌟</span>
+                </div>
+                <p>You need as you want to support muscle recovery</p>
+                <h3>Magnesium</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.vitaminCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>❤️</span>
+                  <span>🧠</span>
+                  <span>🌟</span>
+                </div>
+                <p>You need to avoid diet-based brain fog</p>
+                <h3>Ashwagandha</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.vitaminCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🌿</span>
+                  <span>✨</span>
+                  <span>🌟</span>
+                </div>
+                <p>You need as you sometimes feel low energy</p>
+                <h3>Rhodiola</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+          </div>
+          
+          <div className={styles.waterReminder}>
+            <span>💧</span>
+            <p>TAKE DAILY WITH WATER</p>
+          </div>
+        </div>
       </div>
     </main>
   );

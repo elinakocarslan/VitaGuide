@@ -34,10 +34,26 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: #4CAF50; /* The green background for the intro page */
+  background-image: url('/images/vitamin3.jpg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
+  position: relative;
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 244, 235, 0.9);
 }
 
 .center {
+  position: relative;
+  z-index: 2; 
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -47,16 +63,38 @@
   margin: 0 auto;
 }
 
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.logo {
+  font-size: 2.5rem;
+  margin-right: 0.5rem;
+  filter: brightness(0.6) sepia(0.4) saturate(0.8) hue-rotate(90deg);
+}
+
+.brandName {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: bold;
+  color: #50755f;
+}
+
 .title {
+  font-family: 'Poppins', sans-serif;
   font-size: 3rem;
   font-weight: bold;
-  color: white;
+  color: rgb(0, 0, 0);
   margin-bottom: 1rem;
 }
 
 .description {
-  font-size: 1.2rem;
-  color: white;
+  font-weight: bold;
+  font-size: 1rem;
+  color: rgb(0, 0, 0);
   opacity: 0.9;
   margin-bottom: 2rem;
 }
@@ -64,17 +102,19 @@
 .startButton {
   display: inline-block;
   padding: 1rem 2rem;
+  font: "Averta";
   font-size: 1.2rem;
+  font-family: 'Poppins', sans-serif;
   font-weight: bold;
-  color: #4CAF50;
-  background-color: white;
+  color: #ffffff;
+  background-color: #50755f;
   border-radius: 8px;
   transition: all 0.3s ease;
   cursor: pointer;
 }
 
 .startButton:hover {
-  background-color: #f0f0f0;
+  background-color: #628e74;
   transform: translateY(-2px);
 }
 
@@ -220,8 +260,3 @@ a.secondary {
   }
 }
 
-@media (prefers-color-scheme: dark) {
-  .logo {
-    filter: invert();
-  }
-}

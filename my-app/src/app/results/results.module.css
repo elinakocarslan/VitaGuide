@@ -1,65 +1,163 @@
 .main {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
   min-height: 100vh;
-  padding: 2rem;
-  background-color: #8E44AD; 
+  padding: 4rem 2rem;
+  background-color: #FFF5F3;
 }
 
 .center {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 2rem;
-  max-width: 800px;
+  max-width: 1200px;
   margin: 0 auto;
+  width: 100%;
 }
 
-.title {
-  font-size: 2.5rem;
-  font-weight: bold;
-  color: white;
+.recommendation {
+  margin-bottom: 4rem;
+  max-width: 600px;
+}
+
+.recommendation h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.875rem;
+  color: #666;
   margin-bottom: 1rem;
+  letter-spacing: 0.1em;
 }
 
-.description {
-  font-size: 1.2rem;
-  color: white;
-  opacity: 0.9;
+.recommendation h1 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  font-weight: bold;
+}
+
+.recommendation p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #555;
   margin-bottom: 2rem;
 }
 
-.button {
-  display: inline-block;
-  padding: 1rem 2rem;
-  font-size: 1.2rem;
+.recommendation span {
   font-weight: bold;
-  color: #8E44AD;
-  background-color: white;
-  border-radius: 8px;
-  transition: all 0.3s ease;
-  cursor: pointer;
 }
 
-.button:hover {
-  background-color: #f0f0f0;
-  transform: translateY(-2px);
+.arrow {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  color: #666;
+}
+
+.productGrid {
+  margin-top: 2rem;
+}
+
+.productGrid h2 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.subtitle {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+.vitaminList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.vitaminCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.productImage {
+  height: 150px;
+  background: #f5f5f5;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+}
+
+.productInfo {
+  text-align: left;
+}
+
+.benefits {
+  display: flex;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.benefits span {
+  font-size: 1.2rem;
+}
+
+.productInfo p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
+.productInfo h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.productInfo a {
+  font-family: 'Poppins', sans-serif;
+  color: #50755f;
+  text-decoration: none;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.waterReminder {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+  color: #666;
+}
+
+.waterReminder span {
+  font-size: 1.5rem;
+}
+
+.waterReminder p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
 }
 
 @media (max-width: 768px) {
-  .title {
+  .main {
+    padding: 2rem 1rem;
+  }
+
+  .recommendation h1 {
     font-size: 2rem;
   }
 
-  .description {
-    font-size: 1rem;
-  }
-
-  .button {
-    padding: 0.8rem 1.6rem;
-    font-size: 1rem;
+  .vitaminList {
+    grid-template-columns: 1fr;
   }
 } 
