@@ -1,6 +1,6 @@
 'use client';
 
-import styles from '../page.module.css';
+import styles from './results.module.css';
 import Link from 'next/link';
 
 export default function Results() {
