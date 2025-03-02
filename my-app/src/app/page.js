@@ -13,7 +13,7 @@ export default function Home() {
         </div>
         <h1 className={styles.title}>Web App for Vitamin Diagnosis</h1>
         <p className={styles.description}>
-        Get personalized nutrition insights and local food alternatives, anytime, anywhere.
+          Get personalized nutrition insights and local food alternatives, anytime, anywhere.
         </p>
         <Link href="/quiz" className={styles.startButton}>
           Start Quiz
@@ -22,3 +22,4 @@ export default function Home() {
     </main>
   );
 }
+

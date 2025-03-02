@@ -23,9 +23,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>❤️</span>
-                  <span>🧠</span>
-                  <span>💪</span>
                 </div>
                 <p>You need as you eat fish more or less per week</p>
                 <h3>Vitamin D</h3>
@@ -37,9 +34,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🧠</span>
-                  <span>💪</span>
-                  <span>🌟</span>
                 </div>
                 <p>You need as you want to support muscle recovery</p>
                 <h3>Magnesium</h3>
@@ -51,9 +45,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>❤️</span>
-                  <span>🧠</span>
-                  <span>🌟</span>
                 </div>
                 <p>You need to avoid diet-based brain fog</p>
                 <h3>Ashwagandha</h3>
@@ -65,9 +56,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🌿</span>
-                  <span>✨</span>
-                  <span>🌟</span>
                 </div>
                 <p>You need as you sometimes feel low energy</p>
                 <h3>Rhodiola</h3>
@@ -85,9 +73,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🐟</span>
-                  <span>🧠</span>
-                  <span>❤️</span>
                 </div>
                 <p>Rich in Omega-3 fatty acids and Vitamin D</p>
                 <h3>Fatty Fish</h3>
@@ -99,9 +84,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🥬</span>
-                  <span>💪</span>
-                  <span>🦴</span>
                 </div>
                 <p>Excellent source of magnesium and iron</p>
                 <h3>Leafy Greens</h3>
@@ -113,9 +95,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🥜</span>
-                  <span>🧠</span>
-                  <span>💪</span>
                 </div>
                 <p>Great for protein and healthy fats</p>
                 <h3>Nuts & Seeds</h3>
@@ -127,9 +106,6 @@ export default function Results() {
               <div className={styles.productImage}></div>
               <div className={styles.productInfo}>
                 <div className={styles.benefits}>
-                  <span>🫐</span>
-                  <span>🧠</span>
-                  <span>✨</span>
                 </div>
                 <p>High in antioxidants and vitamins</p>
                 <h3>Berries</h3>
