@@ -55,6 +55,7 @@
 
 .productGrid {
   margin-top: 2rem;
+  margin-bottom: 4rem;
 }
 
 .productGrid h2 {
@@ -79,6 +80,20 @@
 }
 
 .vitaminCard {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+}
+
+.foodList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.foodCard {
   background: white;
   border-radius: 12px;
   padding: 1.5rem;
