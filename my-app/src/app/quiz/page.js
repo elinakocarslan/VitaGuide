@@ -3,6 +3,7 @@
 import styles from './quiz.module.css';
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { sendQuizData } from "../../../utils/api.js"; 
 
 const questions = {
   objective: [
@@ -27,8 +28,19 @@ const questions = {
 };
 
 export default function Quiz() {
-  const [answers, setAnswers] = useState({});
   const router = useRouter();
+  const [answers, setAnswers] = useState({});
+  const [demographics, setDemographics] = useState({
+    age: "",
+    gender: "",
+    diet: "",
+    living_environment: ""
+  });
+  const [loading, setLoading] = useState(false);
+
+  const handleDemographicChange = (e) => {
+    setDemographics({ ...demographics, [e.target.name]: e.target.value });
+  };
 
   // Handle selecting an answer
   const handleSelect = (questionId, rating) => {
@@ -38,69 +50,90 @@ export default function Quiz() {
     }));
   };
 
-  const handleSubmit = () => {
-    router.push('/results');
+  const handleSubmit = async () => {
+    if (!demographics.age || !demographics.gender || !demographics.diet || !demographics.living_environment) {
+      alert("Please fill in all demographic fields.");
+      return;
+    }
+
+    setLoading(true);
+    const quizData = { ...demographics, symptoms: answers };
+    const result = await sendQuizData(quizData);
+    setLoading(false);
+
+    if (result.error) {
+      alert("Error fetching results. Please try again.");
+    } else {
+      router.push(`/results?data=${encodeURIComponent(JSON.stringify(result))}`);
+    }
   };
 
   return (
     <main className={styles.main}>
       <div className={styles.center}>
         <h1 className={styles.title}>Health Assessment Quiz</h1>
+
+         {/* Demographic Inputs */}
+         <label>Age: 
+          <input 
+            type="number" 
+            name="age" 
+            value={demographics.age} 
+            onChange={handleDemographicChange} 
+            placeholder="Enter your age"
+          />
+        </label>
+        <label>Gender: 
+          <select name="gender" value={demographics.gender} onChange={handleDemographicChange}>
+            <option value="">Select</option>
+            <option value="Female">Female</option>
+            <option value="Male">Male</option>
+            <option value="Other">Other</option>
+          </select>
+        </label>
+        <label>Diet Type: 
+          <select name="diet" value={demographics.diet} onChange={handleDemographicChange}>
+            <option value="">Select</option>
+            <option value="Omnivore">Omnivore</option>
+            <option value="Vegetarian">Vegetarian</option>
+            <option value="Vegan">Vegan</option>
+          </select>
+        </label>
+        <label>Living Environment: 
+          <select name="living_environment" value={demographics.living_environment} onChange={handleDemographicChange}>
+            <option value="">Select</option>
+            <option value="Urban">Urban</option>
+            <option value="Rural">Rural</option>
+          </select>
+        </label>
+
         <p className={styles.description}>Rate how much you agree with each statement below</p>
 
-        {/* Objective Signs Section */}
-        <h2>Objective Signs (Physical Symptoms)</h2>
-        {questions.objective.map((q) => (
-          <div key={q.id} className={styles.questionBlock}>
-            <p className={styles.questionText}>{q.question}</p>
-            <div className={styles.ratingScale}>
-              {[1, 2, 3, 4, 5].map((num) => (
-                <label key={num} className={styles.optionLabel}>
-                  <input
-                    type="radio"
-                    name={`question-${q.id}`}
-                    value={num}
-                    checked={answers[q.id] === num}
-                    onChange={() => handleSelect(q.id, num)}
-                  />
-                  <span>{num}</span>
-                  {num === 1 && <div className={styles.ratingLabel}>Strongly Disagree</div>}
-                  {num === 5 && <div className={styles.ratingLabel}>Strongly Agree</div>}
-                </label>
-              ))}
-            </div>
+        {Object.entries(questions).map(([category, qs]) => (
+          <div key={category}>
+            <h2>{category === "objective" ? "Objective Signs" : "Subjective Symptoms"}</h2>
+            {qs.map((q) => (
+              <div key={q.id}>
+                <p>{q.question}</p>
+                {[1, 2, 3, 4, 5].map((num) => (
+                  <label key={num}>
+                    <input
+                      type="radio"
+                      name={`question-${q.id}`}
+                      value={num}
+                      checked={answers[q.id] === num}
+                      onChange={() => handleSelect(q.id, num)}
+                    />
+                    {num}
+                  </label>
+                ))}
+              </div>
+            ))}
           </div>
         ))}
 
-        {/* Subjective Symptoms Section */}
-        <h2>Subjective Symptoms (How You Feel)</h2>
-        {questions.subjective.map((q) => (
-          <div key={q.id} className={styles.questionBlock}>
-            <p className={styles.questionText}>{q.question}</p>
-            <div className={styles.ratingScale}>
-              {[1, 2, 3, 4, 5].map((num) => (
-                <label key={num} className={styles.optionLabel}>
-                  <input
-                    type="radio"
-                    name={`question-${q.id}`}
-                    value={num}
-                    checked={answers[q.id] === num}
-                    onChange={() => handleSelect(q.id, num)}
-                  />
-                  <span>{num}</span>
-                  {num === 1 && <div className={styles.ratingLabel}>Strongly Disagree</div>}
-                  {num === 5 && <div className={styles.ratingLabel}>Strongly Agree</div>}
-                </label>
-              ))}
-            </div>
-          </div>
-        ))}
-
-        <button
-          onClick={handleSubmit}
-          className={styles.button}
-        >
-          Submit
+        <button onClick={handleSubmit} disabled={loading}>
+          {loading ? "Analyzing..." : "Get Results"}
         </button>
       </div>
     </main>
