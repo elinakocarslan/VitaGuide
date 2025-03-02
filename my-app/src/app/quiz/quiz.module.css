@@ -5,7 +5,7 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-color: #2196F3; /* A nice blue background for the quiz page */
+  background-color: #FFF5F3;
 }
 
 .center {
@@ -37,16 +37,25 @@
   padding: 1rem 2rem;
   font-size: 1.2rem;
   font-weight: bold;
-  color: #2196F3;
-  background-color: white;
+  color: white;
+  background-color: #50755f;
+  border: none;
   border-radius: 8px;
   transition: all 0.3s ease;
   cursor: pointer;
+  margin-top: 2rem;
+  width: 200px;
 }
 
 .button:hover {
-  background-color: #f0f0f0;
+  background-color: #628e74;
   transform: translateY(-2px);
+}
+
+.button:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+  transform: none;
 }
 
 @media (max-width: 768px) {
@@ -62,4 +71,94 @@
     padding: 0.8rem 1.6rem;
     font-size: 1rem;
   }
-} 
+}
+
+.questionBlock {
+  width: 100%;
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.questionText {
+  font-family: 'Poppins', sans-serif;
+  font-size: 1.1rem;
+  color: #333;
+  margin-bottom: 1.5rem;
+  text-align: left;
+}
+
+.ratingScale {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.optionLabel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.optionLabel input[type="radio"] {
+  display: none;
+}
+
+.optionLabel span {
+  width: 60px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+  font-weight: bold;
+  color: white;
+  transition: all 0.3s ease;
+}
+
+/* Rating button colors */
+.optionLabel:nth-child(1) span {
+  background-color: #E53E3E;
+  /* Red for 1 */
+}
+
+.optionLabel:nth-child(2) span {
+  background-color: #FF6B6B;
+  /* Light red for 2 */
+}
+
+.optionLabel:nth-child(3) span {
+  background-color: #FFB344;
+  /* Yellow for 3 */
+}
+
+.optionLabel:nth-child(4) span {
+  background-color: #9ACD32;
+  /* Light green for 4 */
+}
+
+.optionLabel:nth-child(5) span {
+  background-color: #38A169;
+  /* Green for 5 */
+}
+
+/* Hover and selected states */
+.optionLabel:hover span {
+  transform: translateY(-2px);
+}
+
+.optionLabel input[type="radio"]:checked+span {
+  transform: scale(1.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.ratingLabel {
+  font-size: 0.8rem;
+  color: #666;
+  text-align: center;
+}
