@@ -12,25 +12,25 @@ const recommendationMap = {
         name: 'Vitamin A',
         description: 'Essential for vision, immune function, and cell growth',
         benefits: ['👁️', '🧠', '🛡️'],
-        image: '/images/vitamin_a.png'
+        image: '/images/vitaminA.png'
       },
       {
         name: 'Beta Carotene',
         description: 'Converts to Vitamin A in the body and acts as an antioxidant',
         benefits: ['👁️', '🛡️', '✨'],
-        image: '/images/beta-carotene.jpg'
+        image: '/images/beta.png'
       },
       {
         name: 'Lutein',
         description: 'Supports eye health and protects against blue light damage',
         benefits: ['👁️', '🧠', '✨'],
-        image: '/images/lutein.jpg'
+        image: '/images/lutein.png'
       },
       {
         name: 'Zeaxanthin',
         description: 'Protects the retina and improves visual performance',
         benefits: ['👁️', '🧠', '🛡️'],
-        image: '/images/zeaxanthin.jpg'
+        image: '/images/zeaxanthin.png'
       }
     ],
     foods: [
@@ -38,13 +38,13 @@ const recommendationMap = {
         name: 'Carrots',
         description: 'Rich in beta-carotene which converts to Vitamin A',
         benefits: ['👁️', '🧠', '🛡️'],
-        image: '/images/carrots.jpg'
+        image: '/images/carrots.png'
       },
       {
         name: 'Sweet Potatoes',
         description: 'Excellent source of beta-carotene and other nutrients',
         benefits: ['👁️', '🧠', '❤️'],
-        image: '/images/sweet-potato.jpg'
+        image: '/images/sweetpotato.png'
       }
     ],
     activities: [
@@ -68,25 +68,25 @@ const recommendationMap = {
         name: 'Vitamin B12',
         description: 'Important for nerve function, red blood cell formation, and DNA synthesis',
         benefits: ['🧠', '❤️', '🔋'],
-        image: '/images/vitamin-b12.jpg'
+        image: '/images/b12.png'
       },
       {
         name: 'Vitamin B Complex',
         description: 'Supports energy production and nervous system health',
         benefits: ['🔋', '🧠', '💪'],
-        image: '/images/b-complex.jpg'
+        image: '/images/bcomplex.png'
       },
       {
         name: 'Folate',
         description: 'Works with B12 for cell division and DNA synthesis',
         benefits: ['❤️', '🧠', '🔄'],
-        image: '/images/folate.jpg'
+        image: '/images/folate.png'
       },
       {
         name: 'Iron',
         description: 'Helps with B12 absorption and red blood cell production',
         benefits: ['❤️', '🔋', '💪'],
-        image: '/images/iron.jpg'
+        image: '/images/iron.png'
       }
     ],
     foods: [
@@ -94,13 +94,13 @@ const recommendationMap = {
         name: 'Eggs',
         description: 'Good source of B12 and complete protein',
         benefits: ['🧠', '💪', '🔋'],
-        image: '/images/eggs.jpg'
+        image: '/images/eggs.png'
       },
       {
         name: 'Fish',
         description: 'Rich in B12 and heart-healthy omega-3 fatty acids',
         benefits: ['🧠', '❤️', '🔋'],
-        image: '/images/fish.jpg'
+        image: '/images/fish.png'
       }
     ],
     activities: [
@@ -124,25 +124,25 @@ const recommendationMap = {
         name: 'Vitamin D3',
         description: 'Essential for bone health, immune function, and mood regulation',
         benefits: ['🦴', '🛡️', '🧠'],
-        image: '/images/vitamin-d.jpg'
+        image: '/images/d3.png'
       },
       {
         name: 'Calcium',
         description: 'Works with vitamin D for bone health and muscle function',
         benefits: ['🦴', '💪', '❤️'],
-        image: '/images/calcium.jpg'
+        image: '/images/calcium.png'
       },
       {
         name: 'Magnesium',
         description: 'Helps activate vitamin D and supports bone health',
         benefits: ['🦴', '🧠', '💪'],
-        image: '/images/magnesium.jpg'
+        image: '/images/magnesium.png'
       },
       {
         name: 'Vitamin K2',
         description: 'Works with vitamin D to ensure calcium goes to bones, not arteries',
         benefits: ['🦴', '❤️', '🔄'],
-        image: '/images/vitamin-k2.jpg'
+        image: '/images/k2.png'
       }
     ],
     foods: [
@@ -150,13 +150,13 @@ const recommendationMap = {
         name: 'Fatty Fish',
         description: 'Natural source of vitamin D and omega-3 fatty acids',
         benefits: ['🦴', '❤️', '🧠'],
-        image: '/images/fish.jpg'
+        image: '/images/fish.png'
       },
       {
         name: 'Mushrooms',
         description: 'One of the few plant sources of vitamin D',
         benefits: ['🦴', '🛡️', '🍄'],
-        image: '/images/mushrooms.jpg'
+        image: '/images/mushrooms.png'
       }
     ],
     activities: [
@@ -180,7 +180,7 @@ const recommendationMap = {
         name: 'Zinc',
         description: 'Important for immune function, wound healing, and cell growth',
         benefits: ['🛡️', '✨', '💪'],
-        image: '/images/zinc.jpg'
+        image: '/images/zinc.png'
       }
     ],
     foods: [
@@ -188,13 +188,13 @@ const recommendationMap = {
         name: 'Oysters',
         description: 'Highest natural source of zinc',
         benefits: ['🛡️', '💪', '🧠'],
-        image: '/images/oysters.jpg'
+        image: '/images/oysters.png'
       },
       {
         name: 'Pumpkin Seeds',
         description: 'Good plant-based source of zinc and other minerals',
         benefits: ['🛡️', '💪', '❤️'],
-        image: '/images/pumpkin-seeds.jpg'
+        image: '/images/pumpkin-seeds.png'
       }
     ],
     activities: [
@@ -226,13 +226,13 @@ const recommendationMap = {
         name: 'Spinach',
         description: 'Rich in iron and other essential nutrients',
         benefits: ['❤️', '🔋', '🧠'],
-        image: '/images/spinach.jpg'
+        image: '/images/spinach.png'
       },
       {
         name: 'Red Meat',
         description: 'Excellent source of highly bioavailable iron',
         benefits: ['❤️', '💪', '🔋'],
-        image: '/images/red-meat.jpg'
+        image: '/images/redmeats.png'
       }
     ],
     activities: [
@@ -256,7 +256,7 @@ const recommendationMap = {
         name: 'Magnesium',
         description: 'Important for muscle and nerve function, energy production, and bone health',
         benefits: ['💪', '🧠', '🦴'],
-        image: '/images/magnesium.jpg'
+        image: '/images/magnesium.png'
       }
     ],
     foods: [
@@ -264,13 +264,13 @@ const recommendationMap = {
         name: 'Almonds',
         description: 'Good source of magnesium, healthy fats, and protein',
         benefits: ['💪', '🧠', '❤️'],
-        image: '/images/almonds.jpg'
+        image: '/images/almonds.png'
       },
       {
         name: 'Dark Chocolate',
         description: 'Contains magnesium and antioxidants',
         benefits: ['🧠', '❤️', '😊'],
-        image: '/images/dark-chocolate.jpg'
+        image: '/images/dark-chocolate.png'
       }
     ],
     activities: [
@@ -294,25 +294,25 @@ const recommendationMap = {
         name: 'Multivitamin',
         description: 'A balanced supplement to maintain overall health',
         benefits: ['🛡️', '❤️', '🧠'],
-        image: '/images/multivitamin.jpg'
+        image: '/images/multivitamin.png'
       },
       {
         name: 'Omega-3',
         description: 'Supports heart and brain health',
         benefits: ['❤️', '🧠', '🔄'],
-        image: '/images/omega-3.jpg'
+        image: '/images/omega-3.png'
       },
       {
         name: 'Probiotics',
         description: 'Supports gut health and immune function',
         benefits: ['🦠', '🛡️', '🧠'],
-        image: '/images/probiotics.jpg'
+        image: '/images/probiotics.png'
       },
       {
         name: 'Antioxidants',
         description: 'Protects cells from damage and supports overall health',
         benefits: ['🛡️', '✨', '❤️'],
-        image: '/images/antioxidants.jpg'
+        image: '/images/antioxidants.png'
       }
     ],
     foods: [
@@ -320,13 +320,13 @@ const recommendationMap = {
         name: 'Balanced Diet',
         description: 'Continue eating a variety of whole foods',
         benefits: ['❤️', '🧠', '💪'],
-        image: '/images/balanced-diet.jpg'
+        image: '/images/balanced-diet.png'
       },
       {
         name: 'Colorful Vegetables',
         description: 'Eat a rainbow of vegetables for diverse nutrients',
         benefits: ['🛡️', '❤️', '✨'],
-        image: '/images/vegetables.jpg'
+        image: '/images/vegetables.png'
       }
     ],
     activities: [
@@ -353,25 +353,25 @@ const defaultRecommendations = {
       name: 'Multivitamin',
       description: 'A balanced supplement to maintain overall health',
       benefits: ['🛡️', '❤️', '🧠'],
-      image: '/images/multivitamin.jpg'
+      image: '/images/vitamin4.png'
     },
     {
       name: 'Vitamin D',
       description: 'Essential for bone health and immune function',
       benefits: ['🦴', '🛡️', '🧠'],
-      image: '/images/vitamin-d.jpg'
+      image: '/images/d3.png'
     },
     {
       name: 'Vitamin C',
       description: 'Supports immune function and collagen production',
       benefits: ['🛡️', '✨', '❤️'],
-      image: '/images/vitamin-c.jpg'
+      image: '/images/vitamin3.jpg'
     },
     {
       name: 'Omega-3',
       description: 'Supports heart and brain health',
       benefits: ['❤️', '🧠', '🔄'],
-      image: '/images/omega-3.jpg'
+      image: '/images/vitamin2.jpg'
     }
   ],
   foods: [
@@ -379,13 +379,13 @@ const defaultRecommendations = {
       name: 'Balanced Diet',
       description: 'Focus on whole foods with plenty of fruits and vegetables',
       benefits: ['❤️', '🧠', '💪'],
-      image: '/images/balanced-diet.jpg'
+      image: '/images/balanced-diet.png'
     },
     {
       name: 'Leafy Greens',
       description: 'Rich in vitamins, minerals, and antioxidants',
       benefits: ['🛡️', '❤️', '🧠'],
-      image: '/images/leafy-greens.jpg'
+      image: '/images/leafy-greens.png'
     }
   ],
   activities: [
@@ -560,12 +560,13 @@ export default function Results() {
           <p className={styles.subtitle}>These supplements are ranked by importance for your specific needs</p>
           <div className={styles.vitaminList}>
             {topVitamins.map((vitamin, index) => {
-              // Find the vitamin details in our recommendation map
-              const vitaminDetails = recommendations.vitamins.find(v => v.name === vitamin.name) || {
+              // Find the vitamin details in the correct recommendation map
+              const vitaminMap = recommendationMap[vitamin.name];
+              const vitaminDetails = vitaminMap ? vitaminMap.vitamins[0] : {
                 name: vitamin.name,
                 description: `Important supplement for overall health and wellbeing`,
                 benefits: ['🛡️', '❤️', '🧠'],
-                image: '/images/placeholder.jpg'
+                image: '/images/vitamin.jpg'
               };
               
               return (
