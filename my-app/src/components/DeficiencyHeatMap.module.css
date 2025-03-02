@@ -1,0 +1,48 @@
+.heatMapContainer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.heatMapContainer h4 {
+  margin: 0 0 1rem 0;
+  color: #333;
+}
+
+.map {
+  min-height: 300px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  position: relative;
+}
+
+.legendContainer {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  background: white;
+  padding: 0.5rem;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.legendItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.25rem 0;
+}
+
+.legendColor {
+  width: 20px;
+  height: 20px;
+  border-radius: 4px;
+}
+
+.legendItem span {
+  font-size: 0.85rem;
+  color: #666;
+} 

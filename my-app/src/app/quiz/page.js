@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import styles from './quiz.module.css';
+import Link from 'next/link';
 
-export default function Quiz() {
+export default function QuizPage() {
   const router = useRouter();
   const [currentStep, setCurrentStep] = useState(0);
   const [quizData, setQuizData] = useState({
@@ -233,34 +234,46 @@ export default function Quiz() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.center}>
-        <div className={styles.progressBar}>
-          <div 
-            className={styles.progressFill} 
-            style={{ width: `${(currentStep / (questions.length - 1)) * 100}%` }}
-          ></div>
-        </div>
-        
-        <div className={styles.quizContainer}>
-          {renderQuestion()}
+      <div className={styles.header}>
+        <Link href="/" className={styles.backButton}>
+          ← Back to Home
+        </Link>
+        <h1>Vitamin Assessment Quiz</h1>
+        <p className={styles.subtitle}>
+          Answer a few questions to get personalized nutrition recommendations
+        </p>
+      </div>
+      
+      <div className={styles.content}>
+        <div className={styles.center}>
+          <div className={styles.progressBar}>
+            <div 
+              className={styles.progressFill} 
+              style={{ width: `${(currentStep / (questions.length - 1)) * 100}%` }}
+            ></div>
+          </div>
           
-          <div className={styles.navigationButtons}>
-            {currentStep > 0 && (
+          <div className={styles.quizContainer}>
+            {renderQuestion()}
+            
+            <div className={styles.navigationButtons}>
+              {currentStep > 0 && (
+                <button 
+                  className={styles.backButton} 
+                  onClick={handleBack}
+                  disabled={isSubmitting}
+                >
+                  Back
+                </button>
+              )}
               <button 
-                className={styles.backButton} 
-                onClick={handleBack}
+                className={styles.nextButton} 
+                onClick={handleNext}
                 disabled={isSubmitting}
               >
-                Back
+                {currentStep === questions.length - 1 ? 'Submit' : 'Next'}
               </button>
-            )}
-            <button 
-              className={styles.nextButton} 
-              onClick={handleNext}
-              disabled={isSubmitting}
-            >
-              {currentStep === questions.length - 1 ? 'Submit' : 'Next'}
-            </button>
+            </div>
           </div>
         </div>
       </div>
