@@ -75,10 +75,67 @@ export default function Results() {
               </div>
             </div>
           </div>
-          
-          <div className={styles.waterReminder}>
-            <span>💧</span>
-            <p>TAKE DAILY WITH WATER</p>
+        </div>
+
+        <div className={styles.productGrid}>
+          <h2>Foods</h2>
+          <p className={styles.subtitle}>Foods that are rich in the vitamins and minerals you need</p>
+          <div className={styles.foodList}>
+            <div className={styles.foodCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🐟</span>
+                  <span>🧠</span>
+                  <span>❤️</span>
+                </div>
+                <p>Rich in Omega-3 fatty acids and Vitamin D</p>
+                <h3>Fatty Fish</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.foodCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🥬</span>
+                  <span>💪</span>
+                  <span>🦴</span>
+                </div>
+                <p>Excellent source of magnesium and iron</p>
+                <h3>Leafy Greens</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.foodCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🥜</span>
+                  <span>🧠</span>
+                  <span>💪</span>
+                </div>
+                <p>Great for protein and healthy fats</p>
+                <h3>Nuts & Seeds</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
+
+            <div className={styles.foodCard}>
+              <div className={styles.productImage}></div>
+              <div className={styles.productInfo}>
+                <div className={styles.benefits}>
+                  <span>🫐</span>
+                  <span>🧠</span>
+                  <span>✨</span>
+                </div>
+                <p>High in antioxidants and vitamins</p>
+                <h3>Berries</h3>
+                <Link href="/learn-more">Learn More</Link>
+              </div>
+            </div>
           </div>
         </div>
       </div>
