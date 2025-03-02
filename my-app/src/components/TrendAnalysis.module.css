@@ -171,6 +171,12 @@
   border-radius: 8px;
   padding: 1.5rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+.deficiencyCard:hover {
+  transform: translateY(-2px);
 }
 
 .deficiencyCard h4 {
@@ -267,4 +273,68 @@
     width: 100%;
     justify-content: center;
   }
+}
+
+.prevalenceStats {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: #f8f9fa;
+  border-radius: 6px;
+}
+
+.prevalenceBar {
+  height: 24px;
+  background: #e0e0e0;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.prevalenceFill {
+  height: 100%;
+  transition: width 0.3s ease, background-color 0.3s ease;
+}
+
+.prevalenceText {
+  font-size: 0.9rem;
+  color: #333;
+  margin: 0.5rem 0;
+}
+
+.confidenceLevel {
+  font-size: 0.8rem;
+  color: #666;
+  font-style: italic;
+}
+
+.riskGroups {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 1px solid #eee;
+}
+
+.riskGroups h5 {
+  color: #333;
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+}
+
+.riskGroups ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.riskGroups li {
+  color: #666;
+  font-size: 0.85rem;
+  padding: 0.25rem 0;
+  display: flex;
+  align-items: center;
+}
+
+.riskGroups li:before {
+  content: '•';
+  color: #4CAF50;
+  margin-right: 0.5rem;
 } 

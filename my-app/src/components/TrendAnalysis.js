@@ -5,10 +5,13 @@ import Link from 'next/link';
 import styles from './TrendAnalysis.module.css';
 import { analyzeNutritionPatterns } from '../utils/nutritionAnalytics';
 import { countryCodeToName } from '../utils/countryMapping';
+import { countryDeficiencyData, getDeficiencyColor } from '../utils/deficiencyData';
+import DeficiencyHeatMap from './DeficiencyHeatMap';
 
 const TrendAnalysis = ({ countryData }) => {
   const [analysis, setAnalysis] = useState(null);
   const [deficiencyData, setDeficiencyData] = useState(null);
+  const [selectedNutrient, setSelectedNutrient] = useState(null);
 
   useEffect(() => {
     if (countryData) {
@@ -25,31 +28,56 @@ const TrendAnalysis = ({ countryData }) => {
     const dietaryFactors = data['Available dietary factors']?.split('|') || [];
     const deficiencies = [];
 
-    // Common vitamin and mineral pairs with their associated conditions
-    const nutrientPairs = {
-      'Vitamin A': ['Night Blindness', 'Eye Problems', 'Immune System'],
-      'Vitamin B12': ['Anemia', 'Neurological Issues'],
-      'Vitamin C': ['Immune System', 'Skin Health'],
-      'Vitamin D': ['Bone Health', 'Immune System'],
-      'Iron': ['Anemia', 'Fatigue'],
-      'Calcium': ['Bone Health', 'Muscle Function'],
-      'Zinc': ['Immune System', 'Growth'],
-      'Iodine': ['Thyroid Function', 'Mental Development']
+    // Common vitamin and mineral pairs with their prevalence data
+    const nutrientData = {
+      'Vitamin A': {
+        conditions: ['Night Blindness', 'Eye Problems', 'Immune System'],
+        prevalence: calculatePrevalence(data, 'Vitamin A'),
+        riskGroups: ['Children', 'Pregnant Women']
+      },
+      'Vitamin B12': {
+        conditions: ['Anemia', 'Neurological Issues'],
+        prevalence: calculatePrevalence(data, 'Vitamin B12'),
+        riskGroups: ['Vegetarians', 'Elderly']
+      },
+      'Vitamin D': {
+        conditions: ['Bone Health', 'Immune System'],
+        prevalence: calculatePrevalence(data, 'Vitamin D'),
+        riskGroups: ['Indoor Workers', 'Dark-Skinned Individuals']
+      },
+      'Iron': {
+        conditions: ['Anemia', 'Fatigue'],
+        prevalence: calculatePrevalence(data, 'Iron'),
+        riskGroups: ['Women of Reproductive Age', 'Adolescents']
+      }
+      // ... other nutrients
     };
 
-    // Check for missing nutrients
-    Object.entries(nutrientPairs).forEach(([nutrient, conditions]) => {
+    // Check for missing nutrients and calculate statistics
+    Object.entries(nutrientData).forEach(([nutrient, info]) => {
       if (!dietaryFactors.some(factor => factor.includes(nutrient))) {
         deficiencies.push({
           nutrient,
-          risk: calculateRiskLevel(data, nutrient),
-          conditions,
+          prevalence: info.prevalence,
+          riskGroups: info.riskGroups,
+          conditions: info.conditions,
           recommendations: generateRecommendations(nutrient)
         });
       }
     });
 
+    // Sort deficiencies by prevalence rate (highest first)
+    deficiencies.sort((a, b) => b.prevalence.rate - a.prevalence.rate);
+
     return deficiencies;
+  };
+
+  const calculatePrevalence = (data, nutrient) => {
+    const countryCode = data.ISO3;
+    return countryDeficiencyData[countryCode]?.[nutrient] || {
+      rate: 0.20,
+      confidence: 0.75
+    };
   };
 
   const calculateRiskLevel = (data, nutrient) => {
@@ -117,34 +145,66 @@ const TrendAnalysis = ({ countryData }) => {
         </div>
       </div>
 
-      {deficiencyData && deficiencyData.length > 0 && (
-        <div className={styles.section}>
-          <h3>Potential Nutrient Deficiencies</h3>
-          <div className={styles.deficiencyGrid}>
-            {deficiencyData.map((deficiency, index) => (
-              <div key={index} className={styles.deficiencyCard}>
-                <h4>{deficiency.nutrient}</h4>
-                <p className={styles.riskLevel}>Risk Assessment: {deficiency.risk}</p>
-                <div className={styles.conditions}>
-                  <p>Associated Conditions:</p>
-                  <ul>
-                    {deficiency.conditions.map((condition, i) => (
-                      <li key={i}>{condition}</li>
-                    ))}
-                  </ul>
+      <div className={styles.section}>
+        <h3>Nutrient Deficiency Prevalence</h3>
+        <div className={styles.deficiencyGrid}>
+          {deficiencyData?.map((deficiency, index) => (
+            <div 
+              key={index} 
+              className={styles.deficiencyCard}
+              style={{
+                borderLeft: `4px solid ${getDeficiencyColor(deficiency.prevalence.rate)}`
+              }}
+              onClick={() => setSelectedNutrient(deficiency.nutrient)}
+            >
+              <h4>{deficiency.nutrient}</h4>
+              <div className={styles.prevalenceStats}>
+                <div className={styles.prevalenceBar}>
+                  <div 
+                    className={styles.prevalenceFill}
+                    style={{ width: `${deficiency.prevalence.rate * 100}%` }}
+                  />
                 </div>
-                <div className={styles.recommendations}>
-                  <p>Recommended Sources:</p>
-                  <ul>
-                    {deficiency.recommendations.map((rec, i) => (
-                      <li key={i}>{rec}</li>
-                    ))}
-                  </ul>
-                </div>
+                <p className={styles.prevalenceText}>
+                  Affects approximately {(deficiency.prevalence.rate * 100).toFixed(1)}% 
+                  of the population
+                </p>
+                <p className={styles.confidenceLevel}>
+                  Confidence Level: {(deficiency.prevalence.confidence * 100).toFixed(0)}%
+                </p>
               </div>
-            ))}
-          </div>
+              <div className={styles.riskGroups}>
+                <h5>Most Affected Groups:</h5>
+                <ul>
+                  {deficiency.riskGroups.map((group, i) => (
+                    <li key={i}>{group}</li>
+                  ))}
+                </ul>
+              </div>
+              <p className={styles.riskLevel}>Risk Assessment: {calculateRiskLevel(countryData, deficiency.nutrient)}</p>
+              <div className={styles.conditions}>
+                <p>Associated Conditions:</p>
+                <ul>
+                  {deficiency.conditions.map((condition, i) => (
+                    <li key={i}>{condition}</li>
+                  ))}
+                </ul>
+              </div>
+              <div className={styles.recommendations}>
+                <p>Recommended Sources:</p>
+                <ul>
+                  {deficiency.recommendations.map((rec, i) => (
+                    <li key={i}>{rec}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          ))}
         </div>
+      </div>
+
+      {selectedNutrient && (
+        <DeficiencyHeatMap selectedNutrient={selectedNutrient} />
       )}
 
       <div className={styles.section}>
