@@ -1,6 +1,8 @@
 from flask import Flask, request, jsonify
 import pandas as pd
 from sklearn.preprocessing import LabelEncoder
+from sklearn.neighbors import NearestNeighbors
+import numpy as np
 
 app = Flask(__name__)
 
@@ -8,17 +10,17 @@ app = Flask(__name__)
 csv_file_path = "data/deficiency_data.csv" 
 df_kaggle = pd.read_csv(csv_file_path)
 
-# Encode categorical deficiency labels
-le = LabelEncoder()
-df_kaggle["Predicted Deficiency"] = le.fit_transform(df_kaggle["Predicted Deficiency"])
+# Create separate label encoders for each categorical column
+label_encoders = {}
+categorical_columns = ["Predicted Deficiency", "Age", "Gender", "Diet Type", "Living Environment", "Country"]
 
-demographic_columns = ["Age", "Gender", "Diet Type", "Living Environment"]
-symptom_columns = df_kaggle.columns[4:-1]  # Symptoms start at column index 4, exclude last column
+for column in categorical_columns:
+    label_encoders[column] = LabelEncoder()
+    df_kaggle[column] = label_encoders[column].fit_transform(df_kaggle[column])
+
+demographic_columns = ["Age", "Gender", "Diet Type", "Living Environment", "Country"]
+symptom_columns = df_kaggle.columns[5:-1]  # Symptoms start after demographic columns, exclude last column
 all_feature_columns = demographic_columns + list(symptom_columns)
-
-# Encode categorical demographic data
-for col in demographic_columns:
-    df_kaggle[col] = le.fit_transform(df_kaggle[col])
 
 # Train a Nearest Neighbors model for comparison
 knn = NearestNeighbors(n_neighbors=1, metric="euclidean")
@@ -32,17 +34,21 @@ def analyze_quiz():
     """
     try:
         # Step 1: Receive JSON data from the frontend
-        data = request.json  # Expecting {"1": 5, "2": 3, "3": 1, ...}
+        data = request.json
         if not data or "symptoms" not in data:
             return jsonify({"error": "Invalid quiz data"}), 400
 
-         # Step 2: Convert demographics into numerical format
-        user_data = {
-            "Age": data["age"],
-            "Gender": le.transform([data["gender"]])[0],
-            "Diet Type": le.transform([data["diet"]])[0],
-            "Living Environment": le.transform([data["living_environment"]])[0]
-        }
+        # Step 2: Convert demographics into numerical format
+        try:
+            user_data = {
+                "Age": label_encoders["Age"].transform([data["age"]])[0],
+                "Gender": label_encoders["Gender"].transform([data["gender"]])[0],
+                "Diet Type": label_encoders["Diet Type"].transform([data["diet"]])[0],
+                "Living Environment": label_encoders["Living Environment"].transform([data["living_environment"]])[0],
+                "Country": label_encoders["Country"].transform([data["country"]])[0]
+            }
+        except ValueError as e:
+            return jsonify({"error": f"Invalid demographic data: {str(e)}"}), 400
 
         # Convert quiz responses (1,2 → No (0), 3,4,5 → Yes (1))
         symptom_binary = {str(symptom): (1 if score >= 3 else 0) for symptom, score in data["symptoms"].items()}
@@ -56,19 +62,30 @@ def analyze_quiz():
         predicted_deficiency_code = df_kaggle.loc[best_match_idx, "Predicted Deficiency"]
 
         # Decode the predicted deficiency label
-        predicted_deficiency = le.inverse_transform([int(predicted_deficiency_code)])[0]
+        predicted_deficiency = label_encoders["Predicted Deficiency"].inverse_transform([int(predicted_deficiency_code)])[0]
 
-        #Extract recommended vitamins from dataset
-        recommended_vitamins = df_kaggle.loc[best_match_idx, "Recommended Vitamin"]  # Assuming this column exists
+        # Extract recommended vitamins from dataset
+        recommended_vitamins = df_kaggle.loc[best_match_idx, "Recommended Vitamin"]
 
         # Return response to the frontend
         return jsonify({
             "predicted_deficiency": predicted_deficiency,
-            "recommended_vitamins": recommended_vitamins
+            "recommended_vitamins": recommended_vitamins,
+            "confidence_score": calculate_confidence_score(user_df, df_kaggle.iloc[best_match_idx])
         })
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
+
+def calculate_confidence_score(user_data, matched_data):
+    """
+    Calculate a confidence score based on how well the user data matches the dataset
+    """
+    # Calculate Euclidean distance and convert to a confidence score
+    distance = np.sqrt(((user_data.iloc[0] - matched_data[all_feature_columns]) ** 2).sum())
+    max_distance = np.sqrt(len(all_feature_columns))  # Maximum possible distance
+    confidence_score = max(0, min(100, (1 - distance/max_distance) * 100))
+    return round(confidence_score, 2)
 
 # Run the Flask App
 if __name__ == "__main__":
