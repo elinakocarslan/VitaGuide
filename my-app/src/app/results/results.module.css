@@ -3,10 +3,26 @@
   flex-direction: column;
   min-height: 100vh;
   padding: 4rem 2rem;
-  background-color: #FFF5F3;
+  background-image: url('/images/vitamin.jpg');
+  background-size: contain;
+  background-position: center;
+  background-repeat: repeat;
+  position: relative;
+}
+
+.main::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 244, 235, 0.9);
 }
 
 .center {
+  position: relative;
+  z-index: 2;  
   max-width: 1200px;
   margin: 0 auto;
   width: 100%;
