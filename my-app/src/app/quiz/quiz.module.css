@@ -5,10 +5,9 @@
   align-items: center;
   min-height: 100vh;
   padding: 2rem;
-  background-image: url('/images/vitamin3.jpg');
-  background-size: contain;
+  background-image: url('/images/vitamin4.png');
+  background-size: cover;
   background-position: center;
-  background-repeat: repeat;
   position: relative;
 }
 
@@ -19,7 +18,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 244, 235, 0.9);
+  background-color: rgba(255, 244, 235, 0.8);
   z-index: 1;
 }
 
