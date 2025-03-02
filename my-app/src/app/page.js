@@ -15,9 +15,35 @@ export default function Home() {
         <p className={styles.description}>
           Get personalized nutrition insights and local food alternatives, anytime, anywhere.
         </p>
-        <Link href="/quiz" className={styles.startButton}>
-          Start Quiz
-        </Link>
+        
+        <div className={styles.buttonContainer}>
+          <div className={styles.buttonGroup}>
+            <p className={styles.buttonDescription}>
+              Ready To Improve Your Health?
+            </p>
+            <Link href="/quiz" className={styles.button}>
+            Start Health Quiz
+            </Link>
+          </div>
+          
+          <div className={styles.buttonGroup}>
+            <p className={styles.buttonDescription}>
+              Stay Safe in Your Community
+            </p>
+            <Link href="/community" className={styles.button}>
+              Local Health Alerts
+            </Link>
+          </div>
+          
+          <div className={styles.buttonGroup}>
+            <p className={styles.buttonDescription}>
+            Drive Community Change
+            </p>
+            <Link href="/trends" className={styles.button}>
+            Analyze Community Needs
+            </Link>
+          </div>
+        </div>
       </div>
     </main>
   );

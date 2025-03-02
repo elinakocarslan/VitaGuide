@@ -1,0 +1,28 @@
+.main {
+  padding: 2rem;
+  min-height: 100vh;
+  background-color: #fff;
+}
+
+.header {
+  max-width: 1200px;
+  margin: 0 auto 2rem;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #333;
+  margin: 1rem 0;
+}
+
+.backButton {
+  display: inline-block;
+  color: #4CAF50;
+  text-decoration: none;
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.backButton:hover {
+  text-decoration: underline;
+} 
