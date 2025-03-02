@@ -12,7 +12,7 @@ const recommendationMap = {
         name: 'Vitamin A',
         description: 'Essential for vision, immune function, and cell growth',
         benefits: ['👁️', '🧠', '🛡️'],
-        image: '/images/vitamin-a.jpg'
+        image: '/images/vitamin_a.png'
       },
       {
         name: 'Beta Carotene',
@@ -150,7 +150,7 @@ const recommendationMap = {
         name: 'Fatty Fish',
         description: 'Natural source of vitamin D and omega-3 fatty acids',
         benefits: ['🦴', '❤️', '🧠'],
-        image: '/images/salmon.jpg'
+        image: '/images/fish.jpg'
       },
       {
         name: 'Mushrooms',
@@ -196,6 +196,20 @@ const recommendationMap = {
         benefits: ['🛡️', '💪', '❤️'],
         image: '/images/pumpkin-seeds.jpg'
       }
+    ],
+    activities: [
+      {
+        name: 'Immune-Boosting Exercise',
+        description: 'Moderate exercise like brisk walking or cycling to boost immune function',
+        benefits: ['🛡️', '💪', '❤️'],
+        image: '/images/immune-exercise.jpg'
+      },
+      {
+        name: 'Stress Reduction',
+        description: 'Practice meditation or yoga to reduce stress which can deplete zinc levels',
+        benefits: ['😌', '🧠', '🛡️'],
+        image: '/images/stress-reduction.jpg'
+      }
     ]
   },
   'Iron': {
@@ -204,7 +218,7 @@ const recommendationMap = {
         name: 'Iron',
         description: 'Essential for red blood cell production and oxygen transport',
         benefits: ['❤️', '🔋', '🧠'],
-        image: '/images/iron.jpg'
+        image: '/images/iron.png'
       }
     ],
     foods: [
@@ -219,6 +233,20 @@ const recommendationMap = {
         description: 'Excellent source of highly bioavailable iron',
         benefits: ['❤️', '💪', '🔋'],
         image: '/images/red-meat.jpg'
+      }
+    ],
+    activities: [
+      {
+        name: 'Aerobic Exercise',
+        description: 'Regular cardio exercise to improve circulation and oxygen delivery',
+        benefits: ['❤️', '🔋', '💪'],
+        image: '/images/aerobic-exercise.jpg'
+      },
+      {
+        name: 'Vitamin C Pairing',
+        description: 'Consume vitamin C with iron-rich foods to enhance absorption',
+        benefits: ['🍊', '🔄', '🔋'],
+        image: '/images/vitamin-c-foods.jpg'
       }
     ]
   },
@@ -243,6 +271,20 @@ const recommendationMap = {
         description: 'Contains magnesium and antioxidants',
         benefits: ['🧠', '❤️', '😊'],
         image: '/images/dark-chocolate.jpg'
+      }
+    ],
+    activities: [
+      {
+        name: 'Epsom Salt Bath',
+        description: 'Soak in an Epsom salt bath to absorb magnesium through the skin',
+        benefits: ['💆', '🦴', '😌'],
+        image: '/images/epsom-bath.jpg'
+      },
+      {
+        name: 'Muscle Relaxation',
+        description: 'Practice progressive muscle relaxation to reduce tension and cramps',
+        benefits: ['💪', '😌', '💤'],
+        image: '/images/muscle-relaxation.jpg'
       }
     ]
   },
@@ -362,6 +404,19 @@ const defaultRecommendations = {
   ]
 };
 
+// Add color mapping for different vitamins
+const vitaminColors = {
+  'Vitamin A': '#FDCB6E',
+  'Vitamin B12': '#74B9FF',
+  'Vitamin D': '#FFB347',
+  'Vitamin C': '#FFD8B1',
+  'Zinc': '#A0C4FF',
+  'Iron': '#FF7675',
+  'Magnesium': '#9BF6FF',
+  'No Deficiency': '#B8E994',
+  'General': '#D6A2E8'
+};
+
 export default function Results() {
   const [results, setResults] = useState(null);
   const [userProfile, setUserProfile] = useState(null);
@@ -415,8 +470,73 @@ export default function Results() {
   }
 
   // Get recommendations based on predicted deficiency
-  const deficiency = results?.predicted_deficiency || 'No Deficiency';
+  let deficiency = results?.predicted_deficiency || 'No Deficiency';
   const recommendations = recommendationMap[deficiency] || defaultRecommendations;
+  if(deficiency === 'No Deficiency'){
+    deficiency = 'No';
+  }
+
+  // Get top vitamins with priority levels from the API response
+  let topVitamins = results?.top_vitamins || [
+    { name: deficiency, priority: "High" },
+    { name: "Vitamin D", priority: "Medium" },
+    { name: "Multivitamin", priority: "Low" }
+  ];
+
+  // If the top vitamin is "No Deficiency", only show that one
+  if (topVitamins.some(v => v.name === "No Deficiency")) {
+    topVitamins = [{ name: "No Deficiency", priority: "High" }];
+  }
+
+  // Priority color mapping
+  const priorityColors = {
+    "High": "#FF5C5C",
+    "Medium": "#FFA33E",
+    "Low": "#4CAF50"
+  };
+
+  // Collect foods and activities based on the top vitamins
+  const combinedFoods = [];
+  const combinedActivities = [];
+  
+  // Add foods and activities from each top vitamin's recommendations
+  topVitamins.forEach(vitamin => {
+    const vitaminName = vitamin.name;
+    if (recommendationMap[vitaminName]) {
+      // Add foods if they don't already exist in the combined list
+      recommendationMap[vitaminName].foods.forEach(food => {
+        if (!combinedFoods.some(f => f.name === food.name)) {
+          combinedFoods.push({...food, source: vitaminName});
+        }
+      });
+      
+      // Add activities if they don't already exist in the combined list
+      recommendationMap[vitaminName].activities.forEach(activity => {
+        if (!combinedActivities.some(a => a.name === activity.name)) {
+          combinedActivities.push({...activity, source: vitaminName});
+        }
+      });
+    }
+  });
+
+  // If we don't have enough foods or activities, add from the default recommendations
+  if (combinedFoods.length < 2) {
+    defaultRecommendations.foods.forEach(food => {
+      if (!combinedFoods.some(f => f.name === food.name)) {
+        combinedFoods.push({...food, source: "General"});
+        if (combinedFoods.length >= 4) return;
+      }
+    });
+  }
+  
+  if (combinedActivities.length < 2) {
+    defaultRecommendations.activities.forEach(activity => {
+      if (!combinedActivities.some(a => a.name === activity.name)) {
+        combinedActivities.push({...activity, source: "General"});
+        if (combinedActivities.length >= 4) return;
+      }
+    });
+  }
 
   return (
     <main className={styles.main}>
@@ -425,30 +545,53 @@ export default function Results() {
           <h3>YOUR RESULTS</h3>
           <h1>Personalized Recommendations</h1>
           <p>
-            Based on your responses, we've identified that you may have a <span>{deficiency}</span> deficiency.
-            Here are some vitamins, foods, and activities that can help address your specific needs.
+            {topVitamins.length === 1 && topVitamins[0].name === "No Deficiency" ? (
+              <>Based on your responses, we've found <span>no significant vitamin deficiencies</span>. 
+              Here are some general recommendations to maintain your health.</>
+            ) : (
+              <>Based on your responses, we've identified that you may have a <span>{deficiency}</span> deficiency.
+              Here are some vitamins, foods, and activities that can help address your specific needs.</>
+            )}
           </p>
         </div>
 
         <div className={styles.productGrid}>
-          <h2>Top 4 Recommended Vitamins</h2>
-          <p className={styles.subtitle}>These supplements can help address your potential deficiency</p>
+          <h2>Priority Vitamin Recommendations</h2>
+          <p className={styles.subtitle}>These supplements are ranked by importance for your specific needs</p>
           <div className={styles.vitaminList}>
-            {recommendations.vitamins.slice(0, 4).map((vitamin, index) => (
-              <div key={index} className={styles.vitaminCard}>
-                <div className={styles.productImage} style={{backgroundImage: `url(${vitamin.image || '/images/placeholder.jpg'})`, backgroundSize: 'cover'}}></div>
-                <div className={styles.productInfo}>
-                  <div className={styles.benefits}>
-                    {vitamin.benefits.map((benefit, i) => (
-                      <span key={i}>{benefit}</span>
-                    ))}
+            {topVitamins.map((vitamin, index) => {
+              // Find the vitamin details in our recommendation map
+              const vitaminDetails = recommendations.vitamins.find(v => v.name === vitamin.name) || {
+                name: vitamin.name,
+                description: `Important supplement for overall health and wellbeing`,
+                benefits: ['🛡️', '❤️', '🧠'],
+                image: '/images/placeholder.jpg'
+              };
+              
+              return (
+                <div key={index} className={styles.vitaminCard}>
+                  <div className={styles.priorityBadge} style={{backgroundColor: priorityColors[vitamin.priority]}}>
+                    {vitamin.priority} Priority
                   </div>
-                  <p>{vitamin.description}</p>
-                  <h3>{vitamin.name}</h3>
-                  <Link href="/learn-more">Learn More</Link>
+                  <div className={styles.productImage}>
+                    <img 
+                      src={vitaminDetails.image || '/images/vitamin.jpg'} 
+                      alt={vitaminDetails.name} 
+                      onError={(e) => {e.target.src = '/images/vitamin.jpg'}}
+                    />
+                  </div>
+                  <div className={styles.productInfo}>
+                    <div className={styles.benefits}>
+                      {vitaminDetails.benefits.map((benefit, i) => (
+                        <span key={i}>{benefit}</span>
+                      ))}
+                    </div>
+                    <p>{vitaminDetails.description}</p>
+                    <h3>{vitamin.name}</h3>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
           
           <div className={styles.waterReminder}>
@@ -461,9 +604,15 @@ export default function Results() {
           <h2>Recommended Foods</h2>
           <p className={styles.subtitle}>Include these foods in your diet to naturally address your needs</p>
           <div className={styles.vitaminList}>
-            {recommendations.foods.map((food, index) => (
+            {combinedFoods.slice(0, 4).map((food, index) => (
               <div key={index} className={styles.vitaminCard}>
-                <div className={styles.productImage} style={{backgroundImage: `url(${food.image || '/images/placeholder.jpg'})`, backgroundSize: 'cover'}}></div>
+                <div className={styles.productImage}>
+                  <img 
+                    src={food.image || '/images/vitamin.jpg'} 
+                    alt={food.name} 
+                    onError={(e) => {e.target.src = '/images/vitamin.jpg'}}
+                  />
+                </div>
                 <div className={styles.productInfo}>
                   <div className={styles.benefits}>
                     {food.benefits.map((benefit, i) => (
@@ -472,7 +621,7 @@ export default function Results() {
                   </div>
                   <p>{food.description}</p>
                   <h3>{food.name}</h3>
-                  <Link href="/learn-more">Learn More</Link>
+                  <div className={styles.sourceTag}>For {food.source}</div>
                 </div>
               </div>
             ))}
@@ -483,21 +632,34 @@ export default function Results() {
           <h2>Recommended Activities</h2>
           <p className={styles.subtitle}>These lifestyle activities can help maximize your health benefits</p>
           <div className={styles.vitaminList}>
-            {recommendations.activities.map((activity, index) => (
-              <div key={index} className={styles.vitaminCard}>
-                <div className={styles.productImage} style={{backgroundImage: `url(${activity.image || '/images/placeholder.jpg'})`, backgroundSize: 'cover'}}></div>
-                <div className={styles.productInfo}>
-                  <div className={styles.benefits}>
-                    {activity.benefits.map((benefit, i) => (
-                      <span key={i}>{benefit}</span>
-                    ))}
+            {combinedActivities.slice(0, 4).map((activity, index) => {
+              const accentColor = vitaminColors[activity.source] || '#50755f';
+              return (
+                <div key={index} className={styles.activityCard}>
+                  <div 
+                    className={styles.activityIcon} 
+                    style={{backgroundColor: `${accentColor}20`}} // 20 is hex for 12% opacity
+                  >
+                    {activity.benefits[0]}
                   </div>
-                  <p>{activity.description}</p>
-                  <h3>{activity.name}</h3>
-                  <Link href="/learn-more">Learn More</Link>
+                  <div className={styles.activityInfo}>
+                    <div className={styles.benefits}>
+                      {activity.benefits.map((benefit, i) => (
+                        <span key={i}>{benefit}</span>
+                      ))}
+                    </div>
+                    <h3>{activity.name}</h3>
+                    <p>{activity.description}</p>
+                    <div 
+                      className={`${styles.sourceTag}`} 
+                      style={{borderLeftColor: accentColor}}
+                    >
+                      For {activity.source}
+                    </div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
 
