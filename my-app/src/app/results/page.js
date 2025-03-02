@@ -246,7 +246,7 @@ const recommendationMap = {
         name: 'Vitamin C Pairing',
         description: 'Consume vitamin C with iron-rich foods to enhance absorption',
         benefits: ['🍊', '🔄', '🔋'],
-        image: '/images/vitamin-c-foods.jpg'
+        image: '/images/vitaminC.jpg'
       }
     ]
   },
@@ -365,7 +365,7 @@ const defaultRecommendations = {
       name: 'Vitamin C',
       description: 'Supports immune function and collagen production',
       benefits: ['🛡️', '✨', '❤️'],
-      image: '/images/vitamin3.jpg'
+      image: '/images/vitaminC.jpg'
     },
     {
       name: 'Omega-3',
